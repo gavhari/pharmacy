@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="pharmacy_menu"
+        name="Pharmacy"
+        action="board.open_board_my_dash_action"
+        web_icon="pharmacy,static/description/icon.png"
+        sequence="1"/>
+
+        <menuitem
+            id="dashboard_menu"
+            name="Dashboard"
+            action="board.open_board_my_dash_action"
+            groups=""
+            parent="pharmacy_menu"
+            sequence="1"/>
+
+        <menuitem
+            id="inventory_menu"
+            name="Inventory"
+            action=""
+            groups=""
+            parent="pharmacy_menu"
+            sequence="2"/>
+
+            <menuitem
+                id="products_menu_root"
+                name="Products"
+                action=""
+                groups=""
+                parent="inventory_menu"
+                sequence="1"/>
+
+</odoo>

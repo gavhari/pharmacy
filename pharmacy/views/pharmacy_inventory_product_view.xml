@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_kanban_view_inherit_pharmacy" model="ir.ui.view">
+        <field name="name">pharmacy_product_template.view.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='kanban-box']" position="replace">
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_card oe_kanban_global_click">
+                        <div class="o_kanban_image mr-1">
+                            <img t-att-src="kanban_image('product.template', 'image_128', record.id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                        </div>
+                        <div class="oe_kanban_details">
+                            <div class="o_kanban_record_top mb-0">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <field name="sale_ok" invisible="1" readonly="1" />
+                                <i class="fa fa-circle text-success" attrs="{'invisible':[('sale_ok','!=',True)]}"/>
+                                <!-- <field name="priority" widget="priority"/> -->
+                            </div>
+                            <t t-if="record.default_code.value">[<field name="default_code"/>]</t>
+                            <div t-if="record.product_variant_count.value &gt; 1" groups="product.group_product_variant">
+                                <strong>
+                                    <t t-esc="record.product_variant_count.value"/> Variants
+                                </strong>
+                            </div>
+                            <div name="product_lst_price" class="mt-1">
+                                Price: <field name="list_price" widget="monetary" options="{'currency_field': 'currency_id', 'field_digits': True}"></field>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pharmacy_product_template_view_tree" model="ir.ui.view">
+        <field name="name">pharmacy_product_template.view.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree string="Products">
+                <field name="name" />
+                <field name="detailed_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="pharmacy_product_template_action" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Product
+              </p><p>
+                Create a product who can be selling for medicine purpose.
+              </p>
+        </field>
+    </record>
+
+    <menuitem id="products_menu" name="Products" action="pharmacy_product_template_action" groups="" parent="products_menu_root" sequence="1"/>
+</odoo>

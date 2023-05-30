@@ -1,0 +1,1 @@
+from . import pharmacy_product_template
